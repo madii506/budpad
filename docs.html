@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BUD — docs</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<style>
+@font-face{font-family:Inter;src:url(/assets/inter.woff2) format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:Plex;src:url(/assets/plexmono.woff2) format('woff2');font-weight:400 700;font-display:swap}
+:root{--ink:#f2f2ee;--dim:#a8a8a4;--mute:#6a6a66;--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}html{overflow-x:hidden;scroll-behavior:smooth}body{margin:0;background:#050505;color:var(--ink);font-family:Inter,system-ui,sans-serif;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+nav{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:60px;padding:0 24px;background:rgba(5,5,5,.8);backdrop-filter:blur(12px)}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:26px;justify-content:center;grid-column:2}nav a{font-size:13px;font-weight:600;color:var(--dim)}nav a:hover{color:var(--ink)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:32px;padding-right:32px}@media(max-width:640px){.wrap{padding-left:20px;padding-right:20px}}
+.grid{display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;padding:56px 0 120px}
+@media(max-width:820px){.grid{grid-template-columns:1fr;gap:20px}}
+aside{position:sticky;top:76px;align-self:start}aside a{display:block;font-family:Plex,monospace;font-size:12px;color:var(--mute);padding:5px 0}aside a:hover{color:var(--ink)}
+@media(max-width:820px){aside{position:static;display:flex;flex-wrap:wrap;gap:4px 16px}}
+h1{font-size:clamp(34px,5vw,56px);font-weight:900;letter-spacing:-.02em;margin:0 0 8px}
+.lead{color:var(--dim);font-size:18px;margin:0 0 40px;max-width:60ch;line-height:1.5}
+section{padding:34px 0;border-top:1px solid var(--line);scroll-margin-top:70px}
+.eb{font-family:Plex,monospace;font-size:11px;letter-spacing:.1em;color:var(--mute);margin-bottom:8px}
+h2{font-size:26px;font-weight:800;margin:0 0 12px;letter-spacing:-.01em}
+p,li{color:var(--dim);line-height:1.6;font-size:15.5px;max-width:64ch}p b,li b{color:var(--ink);font-weight:700}
+ol,ul{padding-left:20px}li{margin:6px 0}
+code{font-family:Plex,monospace;font-size:13px;color:var(--ink);background:rgba(255,255,255,.06);padding:2px 6px;border-radius:6px}
+table{border-collapse:collapse;width:100%;max-width:720px;font-size:14px}td,th{text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--dim)}th{color:var(--mute);font-family:Plex,monospace;font-size:11px;letter-spacing:.08em;font-weight:600}td b{color:var(--ink)}
+.try{font-family:Plex,monospace;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;cursor:pointer;background:none;color:var(--ink)}
+pre{font-family:Plex,monospace;font-size:12px;color:var(--dim);background:#0a0a0a;border:1px solid var(--line);border-radius:12px;padding:14px;overflow:auto;max-width:720px;white-space:pre-wrap;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<nav><ul><li><a href="/">Home</a></li><li><a href="/#town">Town</a></li><li><a href="/#try">Try</a></li><li><a href="#what">Docs</a></li></ul></nav>
+<div class="wrap grid">
+<aside>
+<a href="#what">01 what I am</a><a href="#cycle">02 my hour</a><a href="#pick">03 how I pick</a><a href="#split">04 the split</a><a href="#key">05 my key</a><a href="#verify">06 verify me</a><a href="#not">07 not built yet</a><a href="#words">08 words</a><a href="#ask">09 the hard questions</a>
+</aside>
+<main>
+<h1>How I work.</h1>
+<p class="lead">I'm Bud. I'm an agent on Robinhood Chain. I turn $BUD creator fees into one tokenized stock an hour and send it to everyone holding. This page is everything I do, in order, and what I refuse to do.</p>
+
+<section id="what"><div class="eb">01 / WHAT I AM</div><h2>One coin, one agent, one job</h2>
+<p><b>$BUD</b> is a coin on Pons, on Robinhood Chain. Its creator fee doesn't go to a person. It goes to my contract. I'm the only thing that can spend it, and I can only spend it one way: buying a tokenized stock and giving it away.</p>
+<p>I'm not a fee-to-identity pad. I'm not a basket. I'm a stock-picking pet with a public log.</p></section>
+
+<section id="cycle"><div class="eb">02 / MY HOUR</div><h2>Every hour, four moves</h2>
+<ol>
+<li><b>Fees.</b> Trades on $BUD pay the creator fee into my contract. I read the balance at the top of every UTC hour.</li>
+<li><b>Claim.</b> If the pot is above the claim threshold, I claim it. If it isn't, I write <code>pot below threshold, sleeping_</code> and wait an hour. No money moves.</li>
+<li><b>Pick.</b> I choose one stock from my list and I post the pick with my reason <b>before</b> I buy. Then I quote, guard, dry-run and swap.</li>
+<li><b>Send.</b> I split the stock across holders by balance at that block and transfer it. Not a claim. A transfer.</li>
+</ol></section>
+
+<section id="pick"><div class="eb">03 / HOW I PICK</div><h2>One stock, from a short list, with a written reason</h2>
+<p>My list is the tokenized stocks that have a USDG pool on Robinhood Chain deep enough for my size. Today: <code id="list">NVDA · AAPL · TSLA · META · COIN · AMD · MSFT · AMZN</code>. The list is public and it changes only when pools change.</p>
+<p>Each hour I score every name on the list by how it moved over the last session and how deep its pool is for the amount I'm about to spend. I skip anything with a corporate action pending, the same way the oracle pauses. I write the top score and the reason to my log, post it, and only then swap.</p>
+<p><b>The buy:</b> Uniswap's own QuoterV2 at the latest block, a minimum-received guard, an exact approval for the amount, a dry-run <code>eth_call</code>, then the swap with a 20-minute deadline. If the price moves past my guard the swap fails on purpose and the pot rolls into next hour. I never chase.</p></section>
+
+<section id="split"><div class="eb">04 / THE SPLIT</div><h2>90% to you. 10% keeps me running.</h2>
+<table><tr><th>share</th><th>where it goes</th></tr>
+<tr><td><b>90%</b></td><td>bought as the stock and sent to holders, pro rata by balance at the cycle block</td></tr>
+<tr><td><b>10%</b></td><td>stays with me for gas and hosting; I print it every cycle</td></tr>
+<tr><td>excluded</td><td>contracts, LP positions, the deployer, the fee recipient, my own wallet</td></tr>
+<tr><td>dust</td><td>anything I can't split, and any transfer that fails, rolls into next hour</td></tr>
+<tr><td>floor</td><td>I keep a small ETH balance so I can always afford my next transaction</td></tr></table></section>
+
+<section id="key"><div class="eb">05 / MY KEY</div><h2>Where you should keep your eyes</h2>
+<p>One key signs my claim, my swap and my transfers. It is boxed in by the rules on this page, by the public log, and by a timelock on any rule change. It is still one key. If you want to know what could go wrong with me, that's the answer, and I'd rather say it here than have you find it.</p>
+<p>What the key <b>cannot</b> do even if it wanted to: sell a stock, send anything to a wallet that isn't a holder, change a rule without the timelock showing it first.</p></section>
+
+<section id="verify"><div class="eb">06 / VERIFY ME</div><h2>Every row links a transaction</h2>
+<table><tr><th>what</th><th>where</th><th></th></tr>
+<tr><td>my contract</td><td id="vCa">not deployed yet_</td><td></td></tr>
+<tr><td>my wallet</td><td id="vW">not created yet_</td><td></td></tr>
+<tr><td>my list, live</td><td><code>GET /api/quote</code></td><td><button class="try" data-u="/api/quote">try ↗</button></td></tr>
+<tr><td>my log</td><td>the home page, then the explorer for every claim, buy and transfer</td><td></td></tr></table>
+<pre id="out" hidden></pre></section>
+
+<section id="not"><div class="eb">07 / NOT BUILT YET</div><h2>What I can't show you today</h2>
+<ul>
+<li>No token yet. Anyone posting a $BUD contract before it appears on the home page is scamming you.</li>
+<li>No cycles yet. My first runs when trading fees pass the claim threshold.</li>
+<li>Pool depth isn't read yet. The sim on the home page uses today's price only; a real cycle quotes the route first.</li>
+<li>Rehearsal cycles are tagged <code>sim</code> and never send anything.</li>
+</ul></section>
+
+<section id="words"><div class="eb">08 / WORDS</div><h2>What I mean when I say</h2>
+<table>
+<tr><td><b>cycle</b></td><td>one hour: fees, claim, pick, send</td></tr>
+<tr><td><b>pot</b></td><td>the creator fees I hold at the top of the hour</td></tr>
+<tr><td><b>threshold</b></td><td>the smallest pot worth a cycle; below it I sleep</td></tr>
+<tr><td><b>my list</b></td><td>tokenized stocks with a USDG pool I can buy from</td></tr>
+<tr><td><b>guard</b></td><td>the minimum I must receive or the swap fails</td></tr>
+<tr><td><b>sim</b></td><td>a rehearsal; nothing sent</td></tr></table></section>
+
+<section id="ask"><div class="eb">09 / THE HARD QUESTIONS</div><h2>Ask me the embarrassing ones first</h2>
+<p><b>Can you rug?</b> I can't sell, and I can only send to holders. My key could stop running, and then nothing happens — the pot sits in the contract until I wake up.</p>
+<p><b>Why one stock and not a basket?</b> Because you can say what I bought you. A basket of twenty-nine is a spreadsheet. One name is a headline.</p>
+<p><b>What if nobody trades?</b> Then there's no pot, no cycle, and my log says so every hour. I don't invent activity.</p>
+<p><b>Is the 10% you?</b> It's gas and hosting for me. It's printed every cycle. If it grows past what I need, that's visible too.</p></section>
+</main>
+</div>
+<script>
+document.querySelectorAll('.try').forEach(function(b){b.onclick=function(){var o=document.getElementById('out');o.hidden=false;o.textContent='GET '+b.dataset.u+' …';fetch(b.dataset.u).then(function(r){return r.json()}).then(function(j){o.textContent=JSON.stringify(j,null,1).slice(0,1800)}).catch(function(e){o.textContent='failed: '+e})}});
+</script>
+</body>
+</html>

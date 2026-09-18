@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BUD</title>
+<meta name="description" content="I'm Bud. Every hour I turn $BUD fees into one tokenized stock and send it to everyone holding. Nothing to claim.">
+<meta property="og:title" content="BUD"><meta property="og:description" content="I'm Bud. I buy you stocks. One tokenized stock an hour, sent to every holder. Nothing to claim."><meta property="og:image" content="/assets/og.jpg"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"><link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png"><link rel="apple-touch-icon" href="/assets/favicon-180.png">
+<style>
+@font-face{font-family:Inter;src:url(/assets/inter.woff2) format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:Plex;src:url(/assets/plexmono.woff2) format('woff2');font-weight:400 700;font-display:swap}
+:root{--ink:#f2f2ee;--dim:#a8a8a4;--mute:#6a6a66;--line:rgba(255,255,255,.12);--card:rgba(255,255,255,.045);--bg:#050505}
+*{box-sizing:border-box}html{overflow-x:hidden;scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}[hidden]{display:none!important}
+.mono{font-family:Plex,ui-monospace,monospace}
+#film{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.wrap{max-width:1180px;margin:0 auto;padding-left:32px;padding-right:32px}
+@media(max-width:640px){.wrap{padding-left:20px;padding-right:20px}}
+nav{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:60px;padding:0 24px;background:transparent;transition:background .3s}
+nav.sc{background:rgba(5,5,5,.78);backdrop-filter:blur(12px)}
+nav ul{list-style:none;margin:0;padding:0;display:flex;gap:26px;justify-content:center;grid-column:2}
+nav a{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--dim)}nav a:hover,nav a.on{color:var(--ink)}
+@media(max-width:640px){nav ul{gap:16px}nav a{font-size:12px}}
+.strip{font-size:11.5px;color:var(--mute);text-align:center;padding:8px 20px}
+.strip b{color:var(--dim);font-weight:600}
+.sec{position:relative;padding:96px 0;scroll-margin-top:60px}
+@media(max-width:640px){.sec{padding:64px 0}}
+/* hero */
+#top{min-height:calc(100vh - 60px);display:flex;align-items:center;padding:24px 0 48px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;width:100%}
+@media(max-width:820px){.hero{grid-template-columns:1fr;gap:20px}}
+.stage{position:relative;aspect-ratio:1;max-width:520px;margin:0 auto;width:100%}
+.stage svg{width:100%;height:100%;display:block;overflow:visible}
+.bub{position:absolute;left:58%;top:6%;background:var(--ink);color:#0a0a0a;border-radius:18px;padding:12px 16px;font-weight:700;font-size:clamp(15px,2vw,20px);min-width:150px;max-width:230px;line-height:1.25;box-shadow:0 12px 30px rgba(0,0,0,.6)}
+.bub:after{content:'';position:absolute;left:-10px;bottom:16px;border:9px solid transparent;border-right-color:var(--ink);border-left:0}
+.bub i{display:inline-block;width:2px;height:1em;background:#0a0a0a;vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1,end) infinite}
+@keyframes blink{50%{opacity:0}}
+@media(max-width:820px){.bub{left:auto;right:0;top:2%}}
+.wm{font-weight:900;font-size:clamp(84px,12vw,168px);line-height:.9;letter-spacing:-.02em;margin:0}
+.claim{font-size:clamp(20px,2.4vw,30px);font-weight:600;color:var(--dim);margin:18px 0 0;max-width:22ch;line-height:1.25}
+.claim b{color:var(--ink);font-weight:800}
+.stat{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.pill{border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-size:12.5px;color:var(--dim);display:inline-flex;align-items:center;gap:8px}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--mute)}
+.pill.on .dot{background:var(--ink);box-shadow:0 0 10px var(--ink)}
+.pill code{font-family:Plex,monospace;color:var(--ink);font-size:12.5px}
+/* town */
+#town{padding:40px 0 80px}
+.townbox{position:relative;width:100%;height:620px;overflow:hidden;border-radius:24px}
+@media(max-width:640px){.townbox{height:520px;border-radius:16px}}
+#sky{position:absolute;inset:0;width:100%;height:100%}
+.isl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.isl img{display:block;width:100%;height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.7))}
+#walk{position:absolute;left:0;top:0;pointer-events:none}
+.sign{position:absolute;transform:translate(-50%,-100%);background:#111;color:var(--ink);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 10px;font-family:Plex,monospace;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 8px 20px rgba(0,0,0,.6);transition:transform .15s}
+.sign:before{content:'';position:absolute;left:50%;top:100%;width:2px;height:22px;background:#6a6a66;transform:translateX(-50%)}
+.sign:hover,.sign.on{background:var(--ink);color:#0a0a0a;transform:translate(-50%,-100%) scale(1.06)}
+.sign small{font-weight:500;color:inherit;opacity:.75;margin-left:4px}
+.qcard{position:absolute;left:24px;bottom:24px;width:300px;max-width:calc(100% - 48px);background:rgba(8,8,8,.86);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;padding:16px 18px;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.qcard h4{margin:0;font-size:18px;font-weight:800;display:flex;justify-content:space-between;align-items:baseline}
+.qcard h4 span{font-family:Plex,monospace;font-size:12px;color:var(--dim);font-weight:500}
+.qcard .px{font-size:30px;font-weight:800;margin:6px 0 0;letter-spacing:-.01em}
+.qcard .ch{font-family:Plex,monospace;font-size:12.5px;color:var(--dim)}
+.qcard canvas{display:block;width:100%;height:56px;margin-top:10px}
+.qcard .ln{font-size:11.5px;color:var(--mute);margin-top:10px;line-height:1.5}
+.via{text-align:center;font-family:Plex,monospace;font-size:11.5px;color:var(--mute);margin-top:14px}
+/* rules — comic panels */
+.panels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media(max-width:900px){.panels{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.panels{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 18px 20px;position:relative;overflow:hidden;min-width:0}
+.panel .n{font-family:Plex,monospace;font-size:11px;color:var(--mute);position:absolute;top:14px;right:16px}
+.panel svg{width:110px;height:110px;display:block;margin:6px auto 10px;overflow:visible}
+.panel h3{margin:0;font-size:19px;font-weight:800;letter-spacing:-.01em}
+.panel p{margin:6px 0 0;color:var(--dim);font-size:14px;line-height:1.45}
+.wont{margin:28px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 22px;color:var(--dim);font-size:14.5px}
+.wont li:before{content:'—';color:var(--mute);margin-right:8px}
+.wont b{color:var(--ink);font-weight:700}
+h2{font-size:clamp(30px,4vw,48px);font-weight:900;letter-spacing:-.02em;margin:0 0 26px;line-height:1.05}
+h2 span{color:var(--dim);font-weight:600}
+/* try */
+.try{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:28px;align-items:start}
+@media(max-width:900px){.try{grid-template-columns:minmax(0,1fr)}}
+.form{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px}
+.form label{display:block;font-family:Plex,monospace;font-size:11px;color:var(--mute);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.row>div{min-width:0}
+@media(max-width:480px){.row{grid-template-columns:minmax(0,1fr)}}
+.in{display:flex;align-items:center;background:#0b0b0b;border:1px solid var(--line);border-radius:14px;padding:0 14px;height:52px}
+.in input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--ink);font:700 20px Inter,sans-serif}
+.in span{font-family:Plex,monospace;font-size:12px;color:var(--mute)}
+.in:focus-within{border-color:rgba(255,255,255,.4)}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 22px;border-radius:14px;background:var(--ink);color:#0a0a0a;font-weight:800;font-size:15px;border:0;cursor:pointer;margin-top:14px;width:100%}
+.btn:disabled{opacity:.4;cursor:default}
+.out{margin-top:16px;border-top:1px dashed var(--line);padding-top:16px;min-height:60px}
+.out .say{font-size:17px;line-height:1.5}.out .say b{font-weight:800}
+.out .rc{font-family:Plex,monospace;font-size:12px;color:var(--dim);margin-top:12px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px}
+.out .rc i{font-style:normal;color:var(--mute)}
+.tag{display:inline-block;font-family:Plex,monospace;font-size:10.5px;letter-spacing:.08em;border:1px solid var(--line);border-radius:6px;padding:2px 6px;color:var(--dim);vertical-align:middle;margin-left:8px}
+.log{min-width:0;overflow-wrap:anywhere;background:#070707;border:1px solid var(--line);border-radius:22px;padding:18px 20px;font-family:Plex,monospace;font-size:12.5px;line-height:1.7;color:var(--dim);max-height:420px;overflow:auto}
+.log h5{margin:0 0 10px;font:700 11px Plex,monospace;letter-spacing:.1em;color:var(--mute)}
+.log .e{display:grid;grid-template-columns:62px 1fr;gap:10px}.log .e time{color:var(--mute)}
+.log .e.me{color:var(--ink)}.log .z{color:var(--mute)}
+/* verify */
+.rows{border-top:1px solid var(--line)}
+.vr{display:grid;grid-template-columns:150px 1fr auto;gap:16px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);font-size:15px}
+@media(max-width:640px){.vr{grid-template-columns:1fr;gap:6px}}
+.vr .k{font-family:Plex,monospace;font-size:11.5px;color:var(--mute);letter-spacing:.06em;text-transform:uppercase}
+.vr .v{font-family:Plex,monospace;font-size:13px;color:var(--dim);overflow-wrap:anywhere}
+.vr .v.z:after{content:'_';animation:blink 1s steps(1,end) infinite}
+.vr a{font-size:12.5px;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}.rv.vis{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+.end{padding:40px 0 80px;text-align:center}
+.end .wm{font-size:clamp(56px,8vw,110px)}
+.end p{color:var(--dim);margin:10px 0 0;font-size:16px}
+</style>
+</head>
+<body>
+<canvas id="film"></canvas>
+<nav id="nav"><ul>
+<li><a href="#town">Town</a></li><li><a href="#rules">Rules</a></li><li><a href="#try">Try</a></li><li><a href="#verify">Verify</a></li><li><a href="docs.html">Docs</a></li><li><a id="xl" href="https://x.com/" target="_blank" rel="noopener">X</a></li>
+</ul></nav>
+<div class="strip" id="strip"><b>No token yet.</b> Anyone posting a $BUD contract before it appears on this page is scamming you.</div>
+
+<svg width="0" height="0" style="position:absolute">
+<defs>
+<g id="budhead">
+  <line x1="50" y1="30" x2="50" y2="16" stroke="#c4c4c0" stroke-width="4"/><circle class="bulb" cx="50" cy="12" r="5" fill="#fff"/>
+  <rect x="14" y="42" width="8" height="18" rx="3" fill="#c4c4c0"/><rect x="78" y="42" width="8" height="18" rx="3" fill="#c4c4c0"/>
+  <rect x="18" y="28" width="64" height="46" rx="14" fill="#f2f2ee"/>
+  <rect x="25" y="35" width="50" height="32" rx="10" fill="#0e0e0e"/>
+  <g class="eyes"><circle cx="39" cy="50" r="5.2" fill="#fff"/><circle cx="61" cy="50" r="5.2" fill="#fff"/></g>
+  <path class="mouth" d="M42 58 q8 6 16 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+</g>
+</defs>
+</svg>
+
+<section id="top" class="sec"><div class="wrap hero">
+  <div class="stage">
+    <svg viewBox="0 0 100 100" aria-label="Bud">
+      <g id="big" class="bob">
+        <g class="armL"><path d="M18 52 L6 66 L10 82" stroke="#c4c4c0" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(10 86)"><circle r="6.5" fill="#fff"/><circle cx="-4" cy="5" r="2.8" fill="#fff"/><circle cx="0" cy="6.5" r="2.8" fill="#fff"/><circle cx="4" cy="5" r="2.8" fill="#fff"/></g></g>
+        <g class="armR"><path d="M82 50 L96 38 L98 20" stroke="#c4c4c0" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(99 14)"><circle r="6.5" fill="#fff"/><circle cx="-4" cy="-5" r="2.8" fill="#fff"/><circle cx="0" cy="-6.5" r="2.8" fill="#fff"/><circle cx="4" cy="-5" r="2.8" fill="#fff"/></g></g>
+        <g class="head"><line x1="50" y1="30" x2="50" y2="16" stroke="#c4c4c0" stroke-width="4"/><circle class="bulb" cx="50" cy="12" r="5" fill="#fff"/>
+  <rect x="14" y="42" width="8" height="18" rx="3" fill="#c4c4c0"/><rect x="78" y="42" width="8" height="18" rx="3" fill="#c4c4c0"/>
+  <rect x="18" y="28" width="64" height="46" rx="14" fill="#f2f2ee"/><rect x="25" y="35" width="50" height="32" rx="10" fill="#0e0e0e"/>
+  <g class="eyes"><circle cx="39" cy="50" r="5.2" fill="#fff"/><circle cx="61" cy="50" r="5.2" fill="#fff"/></g>
+  <path d="M42 58 q8 6 16 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/></g>
+      </g>
+    </svg>
+    <div class="bub" id="bub"><span id="say"></span><i></i></div>
+  </div>
+  <div>
+    <h1 class="wm">BUD</h1>
+    <p class="claim">I turn <b>$BUD</b> fees into one stock an hour and send it to everyone holding. <b>Nothing to claim.</b></p>
+    <div class="stat">
+      <span class="pill" id="st"><span class="dot"></span><span id="stT">asleep</span></span>
+      <span class="pill">next cycle <code id="cd">--:--</code></span>
+      <span class="pill">cycles <code id="cyc">0</code></span>
+    </div>
+  </div>
+</div></section>
+
+<section id="town" class="sec"><div class="wrap">
+  <div class="townbox" id="townbox">
+    <canvas id="sky"></canvas>
+    <div class="isl" id="isl"><img src="/assets/island.png" alt="" id="islimg" width="607" height="472"><canvas id="walk"></canvas><div id="signs"></div></div>
+    <div class="qcard" id="qcard" hidden></div>
+  </div>
+  <div class="via" id="via">reading my list…</div>
+</div></section>
+
+<section id="rules" class="sec"><div class="wrap">
+  <h2 class="rv">Every hour. <span>Four moves.</span></h2>
+  <div class="panels">
+    <div class="panel rv"><span class="n">01</span><svg viewBox="0 0 100 100"><g transform="translate(0 4)"><use href="#budhead"/></g><g class="coins"><circle cx="16" cy="82" r="6" fill="none" stroke="#f2f2ee" stroke-width="2"/><circle cx="30" cy="90" r="6" fill="none" stroke="#f2f2ee" stroke-width="2"/><circle cx="50" cy="94" r="6" fill="none" stroke="#f2f2ee" stroke-width="2"/></g></svg><h3>Fees come to me</h3><p>$BUD's creator fee accrues to my contract, not to a person.</p></div>
+    <div class="panel rv"><span class="n">02</span><svg viewBox="0 0 100 100"><g transform="translate(0 4)"><use href="#budhead"/></g><path d="M20 90 h60" stroke="#6a6a66" stroke-width="2"/><rect x="20" y="86" width="0" height="8" fill="#f2f2ee" class="bar"/></svg><h3>I claim them</h3><p>When the pot passes the threshold I pull it. If not, I sleep and say so.</p></div>
+    <div class="panel rv"><span class="n">03</span><svg viewBox="0 0 100 100"><g transform="translate(0 4)"><use href="#budhead"/></g><g class="pick" font-family="Plex,monospace" font-size="9" font-weight="700" fill="#f2f2ee"><rect x="30" y="80" width="40" height="16" rx="8" fill="#0e0e0e" stroke="#f2f2ee" stroke-width="1.5"/><text x="50" y="91.5" text-anchor="middle" id="pickTxt">NVDA</text></g></svg><h3>I pick one. I post first.</h3><p>One stock per cycle. The post comes before the buy, every time.</p></div>
+    <div class="panel rv"><span class="n">04</span><svg viewBox="0 0 100 100"><g transform="translate(0 4)"><use href="#budhead"/></g><g class="send" stroke="#f2f2ee" stroke-width="2" fill="none"><path d="M50 78 v14"/><path d="M42 86 l8 8 l8 -8"/><path d="M22 92 h56" stroke="#6a6a66"/></g></svg><h3>I send it to you</h3><p>Your share of the stock lands in your wallet. No claim, no page, no signing.</p></div>
+  </div>
+  <ul class="wont rv">
+    <li><b>I never sell.</b> I have no sell function.</li>
+    <li><b>90% to holders.</b> 10% keeps me running. Both printed each cycle.</li>
+    <li><b>No pool, no buy.</b> I only pick from stocks with a USDG pool.</li>
+    <li><b>Corporate action pending → I skip it.</b> Same as the oracle.</li>
+    <li><b>Quote, guard, dry-run, then swap.</b> If price moves past my guard, I wait.</li>
+    <li><b>My rules are in the contract.</b> Behind a timelock. Not in a prompt.</li>
+  </ul>
+</div></section>
+
+<section id="try" class="sec"><div class="wrap">
+  <h2 class="rv">Give me a pot. <span>I'll show you the cycle.</span></h2>
+  <div class="try">
+    <div class="form rv">
+      <div class="row">
+        <div><label for="pot">Pot in USDG</label><div class="in"><input id="pot" inputmode="decimal" placeholder="0"><span>USDG</span></div></div>
+        <div><label for="hold">Holders</label><div class="in"><input id="hold" inputmode="numeric" placeholder="0"><span>wallets</span></div></div>
+      </div>
+      <button class="btn" id="run" disabled>Run a sim cycle</button>
+      <div class="out" id="out"><div class="say" style="color:var(--mute)">Type a pot and a holder count. I'll pick from today's list, at today's price, and split it. Tagged <span class="tag">SIM</span> — nothing is sent.</div></div>
+    </div>
+    <div class="log rv" id="log"><h5>MY THOUGHTS</h5><div class="z" id="logz">no cycles yet. my first one runs once trading fees pass the claim threshold_</div></div>
+  </div>
+</div></section>
+
+<section id="verify" class="sec"><div class="wrap">
+  <h2 class="rv">Check me. <span>Everything I do has a link.</span></h2>
+  <div class="rows rv">
+    <div class="vr"><span class="k">token</span><span class="v z" id="vCa">not deployed yet</span><span></span></div>
+    <div class="vr"><span class="k">my wallet</span><span class="v z" id="vW">not created yet</span><span></span></div>
+    <div class="vr"><span class="k">my key</span><span class="v">one key signs my claim, my swap and my transfers. boxed in by the rules, the public log and a timelock. still one key.</span><span></span></div>
+    <div class="vr"><span class="k">my list</span><span class="v" id="vList">—</span><a href="#town">see the town</a></div>
+    <div class="vr"><span class="k">my log</span><span class="v">this page, then the explorer. a cycle you can't verify is a cycle I didn't run.</span><a href="docs.html">read the docs</a></div>
+  </div>
+</div></section>
+
+<div class="end rv"><h1 class="wm">BUD</h1><p>Hold $BUD. I do the rest.</p></div>
+
+<script>
+var CONFIG={ca:'',x:'',wallet:'',explorer:'https://explorer.robinhood.com'};
+var $=function(s){return document.querySelector(s)};
+// ---- nav
+var nav=$('#nav');addEventListener('scroll',function(){nav.classList.toggle('sc',scrollY>40)},{passive:true});
+if(CONFIG.x)$('#xl').href=CONFIG.x;
+// ---- film grain background
+(function(){var c=$('#film'),x=c.getContext('2d'),W,H,dust=[],last=0,red=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function size(){W=c.width=innerWidth;H=c.height=innerHeight;dust=[];for(var i=0;i<Math.floor(W*H/9000);i++)dust.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()<.8?1:2,a:.2+Math.random()*.6,v:.02+Math.random()*.05})}
+size();addEventListener('resize',size);
+var g=document.createElement('canvas');g.width=256;g.height=256;var gx=g.getContext('2d');
+function grain(){var id=gx.createImageData(256,256),d=id.data;for(var i=0;i<d.length;i+=4){var v=Math.random()*40;d[i]=d[i+1]=d[i+2]=v;d[i+3]=255}gx.putImageData(id,0,0)}
+function frame(t){if(t-last>66||!last){last=t;grain();x.clearRect(0,0,W,H);x.globalAlpha=1;x.fillStyle='#050505';x.fillRect(0,0,W,H);x.globalAlpha=.55;var p=x.createPattern(g,'repeat');x.fillStyle=p;x.fillRect(0,0,W,H);x.globalAlpha=1;
+  for(var i=0;i<dust.length;i++){var s=dust[i];x.fillStyle='rgba(255,255,255,'+s.a+')';x.fillRect(s.x,s.y,s.r,s.r);s.y+=s.v;if(s.y>H)s.y=0}
+  for(var k=0;k<3;k++){var sx=(t/37+k*W/3)%W;x.fillStyle='rgba(255,255,255,.05)';x.fillRect(sx,0,1,H)}
+  var vg=x.createRadialGradient(W/2,H/2,H*.3,W/2,H/2,H*.95);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.6)');x.fillStyle=vg;x.fillRect(0,0,W,H)}
+  if(!red)requestAnimationFrame(frame)}
+requestAnimationFrame(frame);})();
+// ---- Bud: blink, wave, talk
+(function(){var big=$('#big');var eyes=big.querySelector('.eyes');var armR=big.querySelector('.armR');var t=0;
+function tick(){t+=1/60;var w=Math.sin(t*2.2)*9;armR.style.transform='rotate('+w+'deg)';armR.style.transformOrigin='82px 50px';big.style.transform='translateY('+(Math.sin(t*1.3)*1.4)+'px)';requestAnimationFrame(tick)}
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches)tick();
+setInterval(function(){eyes.style.transform='scaleY(.1)';eyes.style.transformOrigin='50px 50px';setTimeout(function(){eyes.style.transform=''},120)},3200);
+var lines=["I buy you stocks.","One an hour.","Nothing to claim.","I post the pick before I buy.","I never sell.","Hold $BUD. I do the rest."],li=0,ci=0,say=$('#say');
+function type(){var s=lines[li];if(ci<=s.length){say.textContent=s.slice(0,ci);ci++;setTimeout(type,42)}else setTimeout(function(){ci=0;li=(li+1)%lines.length;type()},2200)}type();})();
+// ---- countdown to the next UTC hour
+(function(){var el=$('#cd');function f(){var n=new Date(),s=3600-(n.getUTCMinutes()*60+n.getUTCSeconds());el.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}f();setInterval(f,1000)})();
+// ---- log
+var LOG=[];function log(txt,me){var el=$('#log');$('#logz').hidden=true;var e=document.createElement('div');e.className='e'+(me?' me':'');var n=new Date();e.innerHTML='<time>'+String(n.getUTCHours()).padStart(2,'0')+':'+String(n.getUTCMinutes()).padStart(2,'0')+'z</time><span></span>';e.lastChild.textContent=txt;el.appendChild(e);el.scrollTop=el.scrollHeight;LOG.push(txt)}
+// ---- quotes + town
+var Q=null,QV='';
+function fmt(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function spark(c,vals,col){var w=c.width=c.clientWidth*2,h=c.height=c.clientHeight*2,x=c.getContext('2d');var lo=Math.min.apply(0,vals),hi=Math.max.apply(0,vals),r=(hi-lo)||1;x.strokeStyle=col;x.lineWidth=3;x.lineJoin='round';x.beginPath();vals.forEach(function(v,i){var px=i/(vals.length-1)*(w-8)+4,py=h-6-(v-lo)/r*(h-12);i?x.lineTo(px,py):x.moveTo(px,py)});x.stroke()}
+function qcard(tk){var q=Q.quotes[tk],ch=(q.price-q.prev)/q.prev*100,card=$('#qcard');card.hidden=false;
+  card.innerHTML='<h4>'+q.name+'<span>'+tk+' · Robinhood Chain</span></h4><div class="px">'+fmt(q.price)+'</div><div class="ch">'+(ch>=0?'+':'')+ch.toFixed(2)+'% today · '+(q.live?'live':'snapshot '+q.asof)+'</div><canvas></canvas><div class="ln">on my list · USDG pool: not read yet · corporate action: none known</div>';
+  spark(card.querySelector('canvas'),q.closes,ch>=0?'#f2f2ee':'#8a8a86');
+  document.querySelectorAll('.sign').forEach(function(s){s.classList.toggle('on',s.dataset.t===tk)})}
+function pickBest(){var best=null,bs=-1e9;Object.keys(Q.quotes).forEach(function(tk){var q=Q.quotes[tk],m=(q.price-q.prev)/q.prev;if(m>bs){bs=m;best=tk}});return best}
+fetch('/api/quote').then(function(r){return r.json()}).then(function(j){Q=j;QV=j.via;
+  var t=j.t?new Date(j.t*1000):null;$('#via').textContent='my list · quotes via '+j.via+(t?' · '+t.toISOString().slice(11,16)+' UTC':'');
+  $('#vList').textContent=j.list.join(' · ')+' — the stocks with a USDG pool I can actually buy';
+  var meta=null;fetch('/assets/island.json').then(function(r){return r.json()}).then(function(m){meta=m;town(m)});
+  var best=pickBest();$('#pickTxt').textContent=best;
+  log('read my list. '+j.live+' of '+j.of+' quotes live via '+j.via,false);
+  log('if a cycle ran now I would look hardest at '+best+' ('+((j.quotes[best].price-j.quotes[best].prev)/j.quotes[best].prev*100).toFixed(2)+'% today). pot: 0 USDG. no cycle.',true);
+  if(window.checkRun)window.checkRun();
+}).catch(function(){$('#via').textContent='my list could not be read right now.';log('could not read my list. I will try again next cycle.',true)});
+function town(meta){var box=$('#townbox'),isl=$('#isl'),img=$('#islimg'),signs=$('#signs'),walk=$('#walk');
+  function layout(){var bw=box.clientWidth,bh=box.clientHeight,sc=Math.min((bw-40)/meta.w,(bh-60)/meta.h,1.3);isl.style.width=meta.w*sc+'px';img.style.width='100%';walk.style.width=meta.w*sc+'px';walk.style.height=meta.h*sc+'px';walk.width=meta.w*sc*2;walk.height=meta.h*sc*2;
+    signs.innerHTML='';Object.keys(meta.signs).forEach(function(tk){var p=meta.signs[tk],b=document.createElement('button');b.className='sign';b.dataset.t=tk;var q=Q.quotes[tk],ch=(q.price-q.prev)/q.prev*100;b.innerHTML=tk+'<small>'+(ch>=0?'+':'')+ch.toFixed(1)+'%</small>';b.style.left=p[0]*sc+'px';b.style.top=(p[1]*sc-24)+'px';b.onclick=function(){qcard(tk);log('you asked about '+tk+'. '+fmt(q.price)+', '+(ch>=0?'+':'')+ch.toFixed(2)+'% today.',false)};signs.appendChild(b)});
+    return sc}
+  var sc=layout();addEventListener('resize',function(){sc=layout()});
+  // sky: stars + drifting clouds
+  var sky=$('#sky'),sx=sky.getContext('2d'),stars=[],clouds=[];
+  function sizeSky(){sky.width=box.clientWidth*2;sky.height=box.clientHeight*2;stars=[];for(var i=0;i<160;i++)stars.push([Math.random()*sky.width,Math.random()*sky.height,Math.random()<.85?1.5:3,.2+Math.random()*.6]);clouds=[];for(var k=0;k<7;k++)clouds.push({x:Math.random()*sky.width,y:sky.height*(.62+Math.random()*.36),w:sky.width*(.07+Math.random()*.09),v:.15+Math.random()*.25,a:.25+Math.random()*.35})}
+  sizeSky();addEventListener('resize',sizeSky);
+  function cloud(cx,cy,w,a){sx.fillStyle='rgba(150,150,146,'+a+')';sx.beginPath();[[-.3,.1,.28],[0,-.05,.36],[.3,.1,.28],[-.1,.15,.3],[.15,.15,.3]].forEach(function(p){sx.moveTo(cx+p[0]*w+p[2]*w,cy+p[1]*w*.38);sx.arc(cx+p[0]*w,cy+p[1]*w*.38,p[2]*w,0,7)});sx.fill()}
+  // walkers
+  var img2=new Image();img2.src='/assets/bud-s.png';var wx=walk.getContext('2d');var walkers=[];for(var i=0;i<5;i++)walkers.push({u:i/5,v:(.00035+Math.random()*.0003)*(Math.random()<.5?1:-1),s:26+Math.random()*8});
+  var path=meta.path;function at(u){u=((u%1)+1)%1;var n=path.length,f=u*n,i=Math.floor(f),t=f-i,a=path[i],b=path[(i+1)%n];return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]}
+  var last=0;function frame(ts){if(ts-last>40){last=ts;sx.clearRect(0,0,sky.width,sky.height);stars.forEach(function(s){sx.fillStyle='rgba(255,255,255,'+s[3]+')';sx.fillRect(s[0],s[1],s[2],s[2])});
+    clouds.forEach(function(c){c.x+=c.v*2;if(c.x-c.w>sky.width)c.x=-c.w;cloud(c.x,c.y,c.w,c.a)});
+    wx.clearRect(0,0,walk.width,walk.height);walkers.sort(function(a,b){return at(a.u)[1]-at(b.u)[1]}).forEach(function(w){w.u+=w.v;var p=at(w.u),s=w.s*sc*2;wx.save();wx.translate(p[0]*sc*2,p[1]*sc*2);if(w.v<0){wx.scale(-1,1)}wx.drawImage(img2,-s/2,-s*.92+Math.sin(ts/140+w.u*40)*2,s,s);wx.restore()})}
+    requestAnimationFrame(frame)}
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)requestAnimationFrame(frame);else{frame(0)}
+}
+// ---- sim cycle
+(function(){var pot=$('#pot'),hold=$('#hold'),run=$('#run'),out=$('#out');
+function ok(){run.disabled=!(Q&&parseFloat(pot.value)>0&&parseInt(hold.value)>0)}window.checkRun=ok;pot.addEventListener('input',ok);hold.addEventListener('input',ok);
+run.addEventListener('click',function(){var P=parseFloat(pot.value),Hn=parseInt(hold.value);if(!(P>0&&Hn>0))return;
+  if(P>50000000){out.innerHTML='<div class="say">That pot is bigger than any pool on my list. I refuse to pretend it fills. Try something under 50,000,000 USDG.</div>';return}
+  var tk=pickBest(),q=Q.quotes[tk],toMe=P*.10,toYou=P*.90,shares=toYou/q.price,each=shares/Hn,m=(q.price-q.prev)/q.prev*100;
+  out.innerHTML='<div class="say">I\'d buy <b>'+tk+'</b> at <b>'+fmt(q.price)+'</b> ('+(m>=0?'+':'')+m.toFixed(2)+'% today, the strongest on my list). '+toYou.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG buys <b>'+shares.toFixed(4)+' '+tk+'</b>. Each of the '+Hn.toLocaleString('en-US')+' wallets gets <b>'+each.toFixed(6)+' '+tk+'</b>.<span class="tag">SIM</span></div>'+
+  '<div class="rc"><i>pot</i><span>'+P.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG</span><i>to holders (90%)</i><span>'+toYou.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG</span><i>to me (10%)</i><span>'+toMe.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG</span><i>price</i><span>'+fmt(q.price)+' · '+(q.live?'live':'snapshot '+q.asof)+'</span><i>pool depth</i><span>not read yet — a real cycle quotes the route first</span><i>sent</i><span>nothing. this is a sim.</span></div>';
+  log('SIM · pot '+P.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG · '+Hn+' wallets · I pick '+tk+' at '+fmt(q.price)+' · '+each.toFixed(6)+' each · nothing sent',true)});
+})();
+// ---- reveal + scroll spy
+(function(){var els=document.querySelectorAll('.rv');var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.08});els.forEach(function(e){io.observe(e)});
+function sweep(){els.forEach(function(e){var r=e.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)e.classList.add('vis')})}addEventListener('scroll',sweep,{passive:true});addEventListener('hashchange',function(){setTimeout(sweep,50)});sweep();
+var links=[].slice.call(document.querySelectorAll('nav a')).filter(function(a){return a.getAttribute('href').charAt(0)==='#'});
+function spy(){var y=scrollY+120,cur=null;links.forEach(function(a){var s=$(a.getAttribute('href'));if(s&&s.offsetTop<=y)cur=a});links.forEach(function(a){a.classList.toggle('on',a===cur)})}addEventListener('scroll',spy,{passive:true});spy();})();
+</script>
+</body>
+</html>
