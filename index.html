@@ -24,10 +24,10 @@ nav a{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--dim)}nav a
 @media(max-width:640px){nav ul{gap:16px}nav a{font-size:12px}}
 .strip{font-size:11.5px;color:var(--mute);text-align:center;padding:8px 20px}
 .strip b{color:var(--dim);font-weight:600}
-.sec{position:relative;padding:96px 0;scroll-margin-top:60px}
-@media(max-width:640px){.sec{padding:64px 0}}
+.sec{position:relative;padding:64px 0;scroll-margin-top:60px}
+@media(max-width:640px){.sec{padding:44px 0}}
 /* hero */
-#top{min-height:calc(100vh - 60px);display:flex;align-items:center;padding:24px 0 48px}
+#top{min-height:calc(88vh - 60px);display:flex;align-items:center;padding:12px 0 24px}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;width:100%}
 @media(max-width:820px){.hero{grid-template-columns:1fr;gap:20px}}
 .stage{position:relative;aspect-ratio:1;max-width:520px;margin:0 auto;width:100%}
@@ -40,23 +40,27 @@ nav a{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--dim)}nav a
 .wm{font-weight:900;font-size:clamp(84px,12vw,168px);line-height:.9;letter-spacing:-.02em;margin:0}
 .claim{font-size:clamp(20px,2.4vw,30px);font-weight:600;color:var(--dim);margin:18px 0 0;max-width:22ch;line-height:1.25}
 .claim b{color:var(--ink);font-weight:800}
-.stat{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.stat{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 .pill{border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-size:12.5px;color:var(--dim);display:inline-flex;align-items:center;gap:8px}
 .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--mute)}
 .pill.on .dot{background:var(--ink);box-shadow:0 0 10px var(--ink)}
 .pill code{font-family:Plex,monospace;color:var(--ink);font-size:12.5px}
 /* town */
-#town{padding:40px 0 80px}
+#town{padding:10px 0 56px}
 .townbox{position:relative;width:100%;height:620px;overflow:hidden;border-radius:24px}
 @media(max-width:640px){.townbox{height:520px;border-radius:16px}}
 #sky{position:absolute;inset:0;width:100%;height:100%}
-.isl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.isl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);will-change:transform}
+#sky{will-change:transform}
+.townbox{cursor:crosshair}
 .isl img{display:block;width:100%;height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.7))}
 #walk{position:absolute;left:0;top:0;pointer-events:none}
 .sign{position:absolute;transform:translate(-50%,-100%);background:#111;color:var(--ink);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px 10px;font-family:Plex,monospace;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 8px 20px rgba(0,0,0,.6);transition:transform .15s}
 .sign:before{content:'';position:absolute;left:50%;top:100%;width:2px;height:22px;background:#6a6a66;transform:translateX(-50%)}
 .sign:hover,.sign.on{background:var(--ink);color:#0a0a0a;transform:translate(-50%,-100%) scale(1.06)}
 .sign small{font-weight:500;color:inherit;opacity:.75;margin-left:4px}
+.sign.hit{animation:hit .5s}
+@keyframes hit{30%{transform:translate(-50%,-100%) scale(1.18)}}
 .qcard{position:absolute;left:24px;bottom:24px;width:300px;max-width:calc(100% - 48px);background:rgba(8,8,8,.86);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:18px;padding:16px 18px;box-shadow:0 20px 50px rgba(0,0,0,.6)}
 .qcard h4{margin:0;font-size:18px;font-weight:800;display:flex;justify-content:space-between;align-items:baseline}
 .qcard h4 span{font-family:Plex,monospace;font-size:12px;color:var(--dim);font-weight:500}
@@ -111,7 +115,7 @@ h2 span{color:var(--dim);font-weight:600}
 .vr a{font-size:12.5px;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
 .rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}.rv.vis{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
-.end{padding:40px 0 80px;text-align:center}
+.end{padding:24px 0 64px;text-align:center}
 .end .wm{font-size:clamp(56px,8vw,110px)}
 .end p{color:var(--dim);margin:10px 0 0;font-size:16px}
 </style>
@@ -121,7 +125,6 @@ h2 span{color:var(--dim);font-weight:600}
 <nav id="nav"><ul>
 <li><a href="#town">Town</a></li><li><a href="#rules">Rules</a></li><li><a href="#try">Try</a></li><li><a href="#verify">Verify</a></li><li><a href="docs.html">Docs</a></li><li><a id="xl" href="https://x.com/" target="_blank" rel="noopener">X</a></li>
 </ul></nav>
-<div class="strip" id="strip"><b>No token yet.</b> Anyone posting a $BUD contract before it appears on this page is scamming you.</div>
 
 <svg width="0" height="0" style="position:absolute">
 <defs>
@@ -153,7 +156,6 @@ h2 span{color:var(--dim);font-weight:600}
   </div>
   <div>
     <h1 class="wm">BUD</h1>
-    <p class="claim">I turn <b>$BUD</b> fees into one stock an hour and send it to everyone holding. <b>Nothing to claim.</b></p>
     <div class="stat">
       <span class="pill" id="st"><span class="dot"></span><span id="stT">asleep</span></span>
       <span class="pill">next cycle <code id="cd">--:--</code></span>
@@ -168,11 +170,9 @@ h2 span{color:var(--dim);font-weight:600}
     <div class="isl" id="isl"><img src="/assets/island.png" alt="" id="islimg" width="607" height="472"><canvas id="walk"></canvas><div id="signs"></div></div>
     <div class="qcard" id="qcard" hidden></div>
   </div>
-  <div class="via" id="via">reading my list…</div>
 </div></section>
 
 <section id="rules" class="sec"><div class="wrap">
-  <h2 class="rv">Every hour. <span>Four moves.</span></h2>
   <div class="panels">
     <div class="panel rv"><span class="n">01</span><svg viewBox="0 0 100 100"><g transform="translate(0 4)"><use href="#budhead"/></g><g class="coins"><circle cx="16" cy="82" r="6" fill="none" stroke="#f2f2ee" stroke-width="2"/><circle cx="30" cy="90" r="6" fill="none" stroke="#f2f2ee" stroke-width="2"/><circle cx="50" cy="94" r="6" fill="none" stroke="#f2f2ee" stroke-width="2"/></g></svg><h3>Fees come to me</h3><p>$BUD's creator fee accrues to my contract, not to a person.</p></div>
     <div class="panel rv"><span class="n">02</span><svg viewBox="0 0 100 100"><g transform="translate(0 4)"><use href="#budhead"/></g><path d="M20 90 h60" stroke="#6a6a66" stroke-width="2"/><rect x="20" y="86" width="0" height="8" fill="#f2f2ee" class="bar"/></svg><h3>I claim them</h3><p>When the pot passes the threshold I pull it. If not, I sleep and say so.</p></div>
@@ -256,32 +256,49 @@ function qcard(tk){var q=Q.quotes[tk],ch=(q.price-q.prev)/q.prev*100,card=$('#qc
   document.querySelectorAll('.sign').forEach(function(s){s.classList.toggle('on',s.dataset.t===tk)})}
 function pickBest(){var best=null,bs=-1e9;Object.keys(Q.quotes).forEach(function(tk){var q=Q.quotes[tk],m=(q.price-q.prev)/q.prev;if(m>bs){bs=m;best=tk}});return best}
 fetch('/api/quote').then(function(r){return r.json()}).then(function(j){Q=j;QV=j.via;
-  var t=j.t?new Date(j.t*1000):null;$('#via').textContent='my list · quotes via '+j.via+(t?' · '+t.toISOString().slice(11,16)+' UTC':'');
   $('#vList').textContent=j.list.join(' · ')+' — the stocks with a USDG pool I can actually buy';
   var meta=null;fetch('/assets/island.json').then(function(r){return r.json()}).then(function(m){meta=m;town(m)});
   var best=pickBest();$('#pickTxt').textContent=best;
-  log('read my list. '+j.live+' of '+j.of+' quotes live via '+j.via,false);
   log('if a cycle ran now I would look hardest at '+best+' ('+((j.quotes[best].price-j.quotes[best].prev)/j.quotes[best].prev*100).toFixed(2)+'% today). pot: 0 USDG. no cycle.',true);
   if(window.checkRun)window.checkRun();
-}).catch(function(){$('#via').textContent='my list could not be read right now.';log('could not read my list. I will try again next cycle.',true)});
-function town(meta){var box=$('#townbox'),isl=$('#isl'),img=$('#islimg'),signs=$('#signs'),walk=$('#walk');
-  function layout(){var bw=box.clientWidth,bh=box.clientHeight,sc=Math.min((bw-40)/meta.w,(bh-60)/meta.h,1.3);isl.style.width=meta.w*sc+'px';img.style.width='100%';walk.style.width=meta.w*sc+'px';walk.style.height=meta.h*sc+'px';walk.width=meta.w*sc*2;walk.height=meta.h*sc*2;
-    signs.innerHTML='';Object.keys(meta.signs).forEach(function(tk){var p=meta.signs[tk],b=document.createElement('button');b.className='sign';b.dataset.t=tk;var q=Q.quotes[tk],ch=(q.price-q.prev)/q.prev*100;b.innerHTML=tk+'<small>'+(ch>=0?'+':'')+ch.toFixed(1)+'%</small>';b.style.left=p[0]*sc+'px';b.style.top=(p[1]*sc-24)+'px';b.onclick=function(){qcard(tk);log('you asked about '+tk+'. '+fmt(q.price)+', '+(ch>=0?'+':'')+ch.toFixed(2)+'% today.',false)};signs.appendChild(b)});
-    return sc}
-  var sc=layout();addEventListener('resize',function(){sc=layout()});
-  // sky: stars + drifting clouds
-  var sky=$('#sky'),sx=sky.getContext('2d'),stars=[],clouds=[];
-  function sizeSky(){sky.width=box.clientWidth*2;sky.height=box.clientHeight*2;stars=[];for(var i=0;i<160;i++)stars.push([Math.random()*sky.width,Math.random()*sky.height,Math.random()<.85?1.5:3,.2+Math.random()*.6]);clouds=[];for(var k=0;k<7;k++)clouds.push({x:Math.random()*sky.width,y:sky.height*(.62+Math.random()*.36),w:sky.width*(.07+Math.random()*.09),v:.15+Math.random()*.25,a:.25+Math.random()*.35})}
-  sizeSky();addEventListener('resize',sizeSky);
+}).catch(function(){log('could not read my list. I will try again next cycle.',true)});
+function town(meta){var box=$('#townbox'),isl=$('#isl'),img=$('#islimg'),signs=$('#signs'),walk=$('#walk'),sky=$('#sky'),sx=sky.getContext('2d'),wx=walk.getContext('2d');
+  var sc=1,stars=[],clouds=[],walkers=[],parcels=[],lit={},tx=0,ty=0,px=0,py=0,red=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var LIST=Object.keys(Q.quotes);
+  function layout(){var bw=box.clientWidth,bh=box.clientHeight;sc=Math.min((bw-40)/meta.w,(bh-60)/meta.h,1.3);isl.style.width=meta.w*sc+'px';img.style.width='100%';walk.style.width=meta.w*sc+'px';walk.style.height=meta.h*sc+'px';walk.width=meta.w*sc*2;walk.height=meta.h*sc*2;
+    signs.innerHTML='';Object.keys(meta.signs).forEach(function(tk){if(!Q.quotes[tk])return;var p=meta.signs[tk],b=document.createElement('button');b.className='sign';b.dataset.t=tk;var q=Q.quotes[tk],ch=(q.price-q.prev)/q.prev*100;b.innerHTML=tk+'<small>'+(ch>=0?'+':'')+ch.toFixed(1)+'%</small>';b.style.left=p[0]*sc+'px';b.style.top=(p[1]*sc-24)+'px';b.onclick=function(){qcard(tk);log('you asked about '+tk+'. '+fmt(q.price)+', '+(ch>=0?'+':'')+ch.toFixed(2)+'% today.',false);send(tk,6)};signs.appendChild(b)});
+    sky.width=bw*2;sky.height=bh*2;stars=[];for(var i=0;i<170;i++)stars.push([Math.random()*sky.width,Math.random()*sky.height,Math.random()<.85?1.5:3,.2+Math.random()*.6,Math.random()*6]);
+    clouds=[];for(var k=0;k<7;k++)clouds.push({x:Math.random()*sky.width,y:sky.height*(.62+Math.random()*.36),w:sky.width*(.07+Math.random()*.09),v:.15+Math.random()*.25,a:.25+Math.random()*.35})}
+  layout();addEventListener('resize',layout);
   function cloud(cx,cy,w,a){sx.fillStyle='rgba(150,150,146,'+a+')';sx.beginPath();[[-.3,.1,.28],[0,-.05,.36],[.3,.1,.28],[-.1,.15,.3],[.15,.15,.3]].forEach(function(p){sx.moveTo(cx+p[0]*w+p[2]*w,cy+p[1]*w*.38);sx.arc(cx+p[0]*w,cy+p[1]*w*.38,p[2]*w,0,7)});sx.fill()}
-  // walkers
-  var img2=new Image();img2.src='/assets/bud-s.png';var wx=walk.getContext('2d');var walkers=[];for(var i=0;i<5;i++)walkers.push({u:i/5,v:(.00035+Math.random()*.0003)*(Math.random()<.5?1:-1),s:26+Math.random()*8});
+  // parallax: the island follows the pointer a little, the sky a little less and the other way
+  box.addEventListener('pointermove',function(e){var r=box.getBoundingClientRect();tx=((e.clientX-r.left)/r.width-.5)*2;ty=((e.clientY-r.top)/r.height-.5)*2});
+  box.addEventListener('pointerleave',function(){tx=0;ty=0});
+  // walkers, each carrying a stock it was handed
+  var img2=new Image();img2.src='/assets/bud-s.png';
+  for(var i=0;i<5;i++)walkers.push({u:i/5,v:(.00035+Math.random()*.0003)*(Math.random()<.5?1:-1),s:26+Math.random()*8,tk:LIST[Math.floor(Math.random()*LIST.length)]});
   var path=meta.path;function at(u){u=((u%1)+1)%1;var n=path.length,f=u*n,i=Math.floor(f),t=f-i,a=path[i],b=path[(i+1)%n];return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]}
-  var last=0;function frame(ts){if(ts-last>40){last=ts;sx.clearRect(0,0,sky.width,sky.height);stars.forEach(function(s){sx.fillStyle='rgba(255,255,255,'+s[3]+')';sx.fillRect(s[0],s[1],s[2],s[2])});
+  // parcels: a share of the stock flies from its signpost to a house; the house lights up when it lands
+  function send(tk,n){var from=meta.signs[tk];if(!from)return;var b=signs.querySelector('.sign[data-t='+tk+']');if(b){b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit')}
+    for(var i=0;i<n;i++){var h=meta.houses[Math.floor(Math.random()*meta.houses.length)];parcels.push({x0:from[0],y0:from[1]-30,x1:h[0],y1:h[1],t:-i*0.09,h:h,tk:tk})}
+    walkers.forEach(function(w){w.tk=tk})}
+  window.deliver=send;
+  var last=0;function frame(ts){if(ts-last>33||red){last=ts;
+    px+=(tx*10-px)*.06;py+=(ty*6-py)*.06;isl.style.transform='translate(-50%,-50%) translate('+px+'px,'+py+'px)';sky.style.transform='translate('+(-px*.35)+'px,'+(-py*.35)+'px) scale(1.03)';
+    sx.clearRect(0,0,sky.width,sky.height);stars.forEach(function(s){var a=s[3]*(.7+.3*Math.sin(ts/900+s[4]));sx.fillStyle='rgba(255,255,255,'+a+')';sx.fillRect(s[0],s[1],s[2],s[2])});
     clouds.forEach(function(c){c.x+=c.v*2;if(c.x-c.w>sky.width)c.x=-c.w;cloud(c.x,c.y,c.w,c.a)});
-    wx.clearRect(0,0,walk.width,walk.height);walkers.sort(function(a,b){return at(a.u)[1]-at(b.u)[1]}).forEach(function(w){w.u+=w.v;var p=at(w.u),s=w.s*sc*2;wx.save();wx.translate(p[0]*sc*2,p[1]*sc*2);if(w.v<0){wx.scale(-1,1)}wx.drawImage(img2,-s/2,-s*.92+Math.sin(ts/140+w.u*40)*2,s,s);wx.restore()})}
-    requestAnimationFrame(frame)}
-  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)requestAnimationFrame(frame);else{frame(0)}
+    wx.clearRect(0,0,walk.width,walk.height);var k=sc*2;
+    // windows breathe; a lit house glows
+    meta.wins.forEach(function(w,i){var a=.35+.35*Math.sin(ts/1400+i*1.7);if(Math.sin(ts/250+i*3.1)>.985)a=.05;wx.fillStyle='rgba(255,255,255,'+a+')';wx.fillRect(w[0]*k-3*k,w[1]*k-4*k,6*k,8*k)});
+    Object.keys(lit).forEach(function(key){var L=lit[key];L.a-=.02;if(L.a<=0){delete lit[key];return}var g=wx.createRadialGradient(L.x*k,L.y*k,0,L.x*k,L.y*k,60*k);g.addColorStop(0,'rgba(255,255,255,'+L.a*.5+')');g.addColorStop(1,'rgba(255,255,255,0)');wx.fillStyle=g;wx.fillRect((L.x-60)*k,(L.y-60)*k,120*k,120*k)});
+    // walkers with their chip
+    walkers.sort(function(a,b){return at(a.u)[1]-at(b.u)[1]}).forEach(function(w){w.u+=w.v*(red?0:1);var p=at(w.u),s=w.s*k;wx.save();wx.translate(p[0]*k,p[1]*k);var bob=Math.sin(ts/140+w.u*40)*2;if(w.v<0){wx.scale(-1,1)}wx.drawImage(img2,-s/2,-s*.92+bob,s,s);wx.restore();
+      wx.font='700 '+(9*k)+'px Plex,monospace';wx.textAlign='center';var tw=wx.measureText(w.tk).width+10*k;wx.fillStyle='rgba(10,10,10,.92)';wx.beginPath();wx.roundRect(p[0]*k-tw/2,(p[1]-w.s*.92-16)*k+bob*k,tw,13*k,6*k);wx.fill();wx.fillStyle='#f2f2ee';wx.fillText(w.tk,p[0]*k,(p[1]-w.s*.92-16)*k+9.5*k+bob*k)});
+    // parcels
+    parcels=parcels.filter(function(p){p.t+=.022;if(p.t<0)return true;var t=Math.min(1,p.t),x=p.x0+(p.x1-p.x0)*t,y=p.y0+(p.y1-p.y0)*t-Math.sin(t*Math.PI)*70;wx.fillStyle='#f2f2ee';wx.beginPath();wx.arc(x*k,y*k,3.2*k,0,7);wx.fill();wx.font='700 '+(7*k)+'px Plex,monospace';wx.fillStyle='rgba(242,242,238,.8)';wx.textAlign='center';wx.fillText(p.tk,x*k,(y-6)*k);
+      if(t>=1){lit[p.h.join()]={x:p.h[0],y:p.h[1],a:1};return false}return true})}
+    if(!red)requestAnimationFrame(frame)}
+  requestAnimationFrame(frame);
 }
 // ---- sim cycle
 (function(){var pot=$('#pot'),hold=$('#hold'),run=$('#run'),out=$('#out');
@@ -291,7 +308,7 @@ run.addEventListener('click',function(){var P=parseFloat(pot.value),Hn=parseInt(
   var tk=pickBest(),q=Q.quotes[tk],toMe=P*.10,toYou=P*.90,shares=toYou/q.price,each=shares/Hn,m=(q.price-q.prev)/q.prev*100;
   out.innerHTML='<div class="say">I\'d buy <b>'+tk+'</b> at <b>'+fmt(q.price)+'</b> ('+(m>=0?'+':'')+m.toFixed(2)+'% today, the strongest on my list). '+toYou.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG buys <b>'+shares.toFixed(4)+' '+tk+'</b>. Each of the '+Hn.toLocaleString('en-US')+' wallets gets <b>'+each.toFixed(6)+' '+tk+'</b>.<span class="tag">SIM</span></div>'+
   '<div class="rc"><i>pot</i><span>'+P.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG</span><i>to holders (90%)</i><span>'+toYou.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG</span><i>to me (10%)</i><span>'+toMe.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG</span><i>price</i><span>'+fmt(q.price)+' · '+(q.live?'live':'snapshot '+q.asof)+'</span><i>pool depth</i><span>not read yet — a real cycle quotes the route first</span><i>sent</i><span>nothing. this is a sim.</span></div>';
-  log('SIM · pot '+P.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG · '+Hn+' wallets · I pick '+tk+' at '+fmt(q.price)+' · '+each.toFixed(6)+' each · nothing sent',true)});
+  log('SIM · pot '+P.toLocaleString('en-US',{maximumFractionDigits:2})+' USDG · '+Hn+' wallets · I pick '+tk+' at '+fmt(q.price)+' · '+each.toFixed(6)+' each · nothing sent',true);if(window.deliver)window.deliver(tk,Math.min(40,Hn));$('#town').scrollIntoView({behavior:'smooth',block:'center'})});
 })();
 // ---- reveal + scroll spy
 (function(){var els=document.querySelectorAll('.rv');var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.08});els.forEach(function(e){io.observe(e)});
